@@ -1,13 +1,14 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4>My Posts, {{ auth()->user()->name }}</h4>
     </div>
 
     <div class="table-responsive col-lg-8">
+        <a href="/dashboard/posts/create" class="btn btn-sm btn-primary mb-3">Create New Post</a>
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
@@ -33,5 +34,4 @@
             </tbody>
         </table>
     </div>
-</main>
 @endsection
