@@ -9,6 +9,12 @@
 
     <div class="table-responsive col-lg-8">
         <a href="/dashboard/posts/create" class="btn btn-sm btn-primary mb-3">Create New Post</a>
+        @if (session()->has('berhasil'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('berhasil') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
