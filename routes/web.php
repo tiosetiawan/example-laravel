@@ -21,14 +21,16 @@ use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('/', function () {
     $data = [
-        "title" => "HOME"
+        "title" => "Home",
+        "active" => "home",
     ];
     return view('home',$data);
 });
 
 Route::get('/about', function () {
     $data = [
-        "title" => "ABOUT"
+        "title" => "About",
+        "active" => "about"
     ];
     return view('about', $data);
 });
@@ -40,8 +42,17 @@ Route::get('posts/{post:slug}', [PostController::class,'show']);
 
 Route::get('/categories/{category:slug}', function(Category $category){
     return view('posts', [
-        'title'    => "Post By Category : $category->name",
-        'posts'    => $category->posts->load('category','author')
+        'title'  => "Post By Category : $category->name",
+        'active' => 'categories',
+        'posts'  => $category->posts->load('category','author')
+    ]);
+});
+
+Route::get('categories', function(){
+    return view('categories', [
+        'title'      => 'Post Categories',
+        'active'     => 'categories',
+        'categories' => Category::all()
     ]);
 });
 
@@ -49,13 +60,6 @@ Route::get('/authors/{author:username}', function(User $author){
     return view('posts', [
         'title'    => "Post By Author : $author->name",
         'posts'    => $author->posts->load('category','author')
-    ]);
-});
-
-Route::get('categories', function(){
-    return view('categories', [
-        'title'    => 'Post Categories',
-        'categories' => Category::all()
     ]);
 });
 

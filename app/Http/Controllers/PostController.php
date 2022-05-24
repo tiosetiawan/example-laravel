@@ -11,14 +11,15 @@ class PostController extends Controller
         return view('posts', 
         [
             "title" => "ALL Posts",
-            "posts"  => Post::latest()->get()
-            // "posts"  => Post::all()
+            "active" => "posts",
+            "posts"  => Post::latest()->filter(request(['search', 'category']))->get()
         ]);
     }
 
     public function show(Post $post){
         return view('post', [
             "title" => "Single Post",
+            "active" => "posts",
             "post"  => $post
         ]);
     }
