@@ -10,7 +10,8 @@
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required autofocus>
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                value="{{ old('title') }}" required autofocus>
             @error('title')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -19,7 +20,8 @@
         </div>
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}" required>
+            <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
+                value="{{ old('slug') }}" required>
             @error('slug')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -39,7 +41,9 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Post Image</label>
-            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+            <img class="img-fluid img-preview mb-2 col-sm-5">
+            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image"
+                onchange="previewImage()">
             @error('image')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -48,7 +52,7 @@
         </div>
         <div class="mb-3">
             <label for="body" class="form-label">Body</label>
-           
+
             <input id="body" type="hidden" name="body" value="{{ old('body') }}">
             <trix-editor input="body"></trix-editor>
             @error('body')
@@ -74,6 +78,18 @@
         e.preventDefault();
     })
 
+    function previewImage() {
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result;
+        } 
+    }
+
 </script>
 @endsection
-
