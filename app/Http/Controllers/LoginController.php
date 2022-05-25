@@ -22,7 +22,14 @@ class LoginController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return response()->json([
+                'success' => true
+            ], 200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Login Gagal!'
+            ], 401);
         }
 
         return back()->with('gagal', 'Login gagal!');
